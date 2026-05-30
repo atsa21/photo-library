@@ -7,10 +7,16 @@ import { PhotoCardComponent } from '@shared/components/photo-card/photo-card.com
 import { take } from 'rxjs';
 import { InfiniteScrollDirective } from "@shared/directives/infinite-scroll.directive";
 import { LoaderComponent } from "@shared/components/loader/loader.component";
+import { CardGridComponent } from '@shared/components/card-grid/card-grid.component';
 
 @Component({
   selector: 'app-photos',
-  imports: [PhotoCardComponent, InfiniteScrollDirective, LoaderComponent],
+  imports: [
+    PhotoCardComponent,
+    InfiniteScrollDirective,
+    LoaderComponent,
+    CardGridComponent,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './photos.component.html',
   styleUrl: './photos.component.scss',

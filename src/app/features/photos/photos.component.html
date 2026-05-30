@@ -1,11 +1,13 @@
 <div
-  class="scrollable-page page"
+  class="page scrollable-page"
   appInfiniteScroll
   (scrolled)="paginatePhotos()"
 >
-  @for (photo of photoList(); track photo.id) {
-    <app-photo-card [photo]="photo" />
-  }
+  <app-card-grid>
+    @for (photo of photoList(); track photo.id) {
+      <app-photo-card [photo]="photo" />
+    }
+  </app-card-grid>
 
   @if (isPaginateLoading()) {
     <app-loader />
