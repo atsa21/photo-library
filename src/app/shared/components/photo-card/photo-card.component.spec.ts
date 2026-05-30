@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PhotoCardComponent } from './photo-card.component';
 import { PhotoModel } from '@core/models';
+import { MOCK_PHOTOS } from '@core/mocks';
 
-const MOCK_PHOTO: PhotoModel = { id: '0', url: 'test0.jpg', thumbUrl: 'small_image_test0.jpg' };
+const mockPhoto: PhotoModel = MOCK_PHOTOS[0];
 
 describe('PhotoCardComponent', () => {
   let component: PhotoCardComponent;
@@ -17,7 +18,7 @@ describe('PhotoCardComponent', () => {
 
     fixture = TestBed.createComponent(PhotoCardComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('photo', MOCK_PHOTO);
+    fixture.componentRef.setInput('photo', mockPhoto);
     fixture.detectChanges();
   });
 
@@ -27,7 +28,7 @@ describe('PhotoCardComponent', () => {
 
   it('should update img src when photo input changes', () => {
     const img: HTMLImageElement = fixture.nativeElement.querySelector('img');
-    expect(img.getAttribute('src')).toBe(MOCK_PHOTO.thumbUrl);
+    expect(img.getAttribute('src')).toBe(mockPhoto.thumbUrl);
   });
 
   it('should emit photoClick with photo on img click', () => {
@@ -36,6 +37,6 @@ describe('PhotoCardComponent', () => {
 
     fixture.nativeElement.querySelector('img').click();
 
-    expect(emitted).toEqual(MOCK_PHOTO);
+    expect(emitted).toEqual(mockPhoto);
   });
 });

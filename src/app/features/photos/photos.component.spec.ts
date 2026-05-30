@@ -92,19 +92,19 @@ describe('PhotosComponent', () => {
   });
 
   describe('getPhotos', () => {
-    it('should call getPhotos with page 0', () => {
+    it('should call getPhotos with page 1', () => {
       component['getPhotos']();
-
-      expect(component['filters']().page).toBe(0);
-      expect(photosService.getPhotos).toHaveBeenCalledWith({ page: 0, limit: 9 });
-      expect(component.photoList().length).toBe(MOCK_PHOTOS.length);
-    });
-
-    it('should update filters page and call getPhotos with page 1', () => {
-      component['getPhotos'](true);
 
       expect(component['filters']().page).toBe(1);
       expect(photosService.getPhotos).toHaveBeenCalledWith({ page: 1, limit: 9 });
+      expect(component.photoList().length).toBe(MOCK_PHOTOS.length);
+    });
+
+    it('should update filters page and call getPhotos with page 2', () => {
+      component['getPhotos'](true);
+
+      expect(component['filters']().page).toBe(2);
+      expect(photosService.getPhotos).toHaveBeenCalledWith({ page: 2, limit: 9 });
       expect(component.photoList().length).toBe(MOCK_PHOTOS.length * 2);
     });
   });
