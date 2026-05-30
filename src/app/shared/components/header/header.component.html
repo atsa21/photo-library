@@ -6,7 +6,7 @@
         matButton="outlined"
         color="secondary"
         [routerLink]="nav.path"
-        routerLinkActive="active"
+        [class.active]="isActive(nav)"
       >{{ nav.label }}</a>
     }
   </nav>
