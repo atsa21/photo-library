@@ -1,1 +1,6 @@
-<p>photo-details works!</p>
+<div class="page img-container">
+  @if (photo(); as photo) {
+    <img [src]="photo.url" alt=''/>
+    <button matButton="tonal" (click)="remove(photo.id)">Remove from favorites</button>
+  }
+</div>

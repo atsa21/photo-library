@@ -21,10 +21,6 @@ html {
   --mat-sys-on-primary: #{vars.$color-on-accent};
   --mat-sys-primary-container: #{vars.$color-accent-container};
   --mat-sys-on-primary-container: #{vars.$color-accent};
-  --mat-sys-secondary: #{vars.$color-accent};
-  --mat-sys-on-secondary: #{vars.$color-on-accent};
-  --mat-sys-secondary-container: #{vars.$color-accent-container};
-  --mat-sys-on-secondary-container: #{vars.$color-accent};
 }
 
 body {
@@ -59,7 +55,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 82px 32px 32px 32px;
+  padding: 64px 32px 32px 32px;
 }
 
 .scrollable-page {

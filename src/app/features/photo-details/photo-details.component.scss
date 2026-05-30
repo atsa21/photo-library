@@ -1,0 +1,16 @@
+.img-container {
+  display: grid;
+  grid-template-rows: 1fr 32px;
+  justify-content: center;
+  gap: 12px;
+  height: calc(100vh - 64px);
+
+  img {
+    height: calc(100vh - 126px);
+  }
+
+  button {
+    width: 210px;
+    justify-self: center;
+  }
+}
