@@ -1,3 +1,5 @@
+@use 'styles/variables' as vars;
+
 .img-container {
   display: grid;
   grid-template-rows: 1fr 32px;
@@ -7,6 +9,16 @@
 
   img {
     height: calc(100vh - 126px);
+    background: vars.$color-skeleton;
+    transition: opacity 0.3s;
+    opacity: 0;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+
+    &.loaded {
+      opacity: 1;
+    }
   }
 
   button {

@@ -1,6 +1,11 @@
 <div class="page img-container">
   @if (photo(); as photo) {
-    <img [src]="photo.url" [alt]='photo.author'/>
+    <img
+      loading="lazy"
+      [src]="photo.url"
+      [alt]='photo.author'
+      (load)="$event.target.classList.add('loaded')"
+    />
     <button matButton="tonal" (click)="remove(photo.id)">Remove from favorites</button>
   }
 </div>

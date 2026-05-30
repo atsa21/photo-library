@@ -1,10 +1,12 @@
+@use 'styles/variables' as vars;
+
 :host {
   display: block;
   width: 100%;
 }
 
 mat-card img {
-  background: #e0e0e0;
+  background: vars.$color-skeleton;
   transition: opacity 0.3s;
   opacity: 0;
   width: 100%;
