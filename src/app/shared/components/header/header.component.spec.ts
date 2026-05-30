@@ -1,22 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
-import { ComponentRef } from '@angular/core';
+import { provideRouter, RouterModule } from '@angular/router';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
-  let componentRef: ComponentRef<HeaderComponent>;
   let fixture: ComponentFixture<HeaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeaderComponent]
+      imports: [HeaderComponent, RouterModule],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-    componentRef = fixture.componentRef;
     fixture.detectChanges();
   });
 
@@ -24,9 +23,7 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set navList when provided in input', () => {
-    componentRef.setInput('navList', [{ label: 'Photos', path: './photos' }]);
-    fixture.detectChanges();
-    expect(component['navList'].length).toBe(1);
+  it('should initial navList length to be 2', () => {
+    expect(component['navList'].length).toBe(2);
   });
 });
