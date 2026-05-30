@@ -4,7 +4,7 @@
   (scrolled)="paginatePhotos()"
 >
   <app-card-grid>
-    @for (photo of photoList(); track photo.id) {
+    @for (photo of photoList(); track photo) {
       <app-photo-card [photo]="photo" />
     }
   </app-card-grid>

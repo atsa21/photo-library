@@ -1,8 +1,13 @@
+@use '../../../../styles/variables' as vars;
+
 .header {
   display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   height: 64px;
   width: 100%;
+  z-index: 100;
 
   & .nav-list {
     display: flex;
@@ -11,10 +16,10 @@
 
     &-item {
       display: flex;
-      color: #212121;
 
       &.active {
-        color: #3c3e6a;
+        color: vars.$color-on-accent;
+        background-color: vars.$color-accent;
       }
     }
   }

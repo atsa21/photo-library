@@ -1,7 +1,13 @@
 <header class="header">
   <nav class="nav-list">
     @for (nav of navList; track nav.label) {
-      <a class="nav-list-item" [routerLink]="nav.path" routerLinkActive="active">{{ nav.label }}</a>
+      <a
+        class="nav-list-item"
+        matButton="outlined"
+        color="secondary"
+        [routerLink]="nav.path"
+        routerLinkActive="active"
+      >{{ nav.label }}</a>
     }
   </nav>
 </header>
