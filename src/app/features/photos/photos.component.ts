@@ -6,16 +6,19 @@ import { PhotosService } from '@core/services/photos.service';
 import { PhotoCardComponent } from '@shared/components/photo-card/photo-card.component';
 import { take } from 'rxjs';
 import { InfiniteScrollDirective } from "@shared/directives/infinite-scroll.directive";
+import { LoaderComponent } from "@shared/components/loader/loader.component";
 
 @Component({
   selector: 'app-photos',
-  imports: [PhotoCardComponent, InfiniteScrollDirective],
+  imports: [PhotoCardComponent, InfiniteScrollDirective, LoaderComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './photos.component.html',
   styleUrl: './photos.component.scss',
 })
 export class PhotosComponent implements OnInit {
-  public photoList = signal<PhotoModel[]>([]);
+  photoList = signal<PhotoModel[]>([]);
+  isPaginateLoading = signal(false);
+
   private filters = signal<FiltersModel>(DEFAULT_FILTERS);
   private photosService = inject(PhotosService);
   private destroyRef = inject(DestroyRef);
@@ -24,7 +27,12 @@ export class PhotosComponent implements OnInit {
     this.getPhotos();
   }
 
-  getPhotos(isPaginated = false): void {
+  paginatePhotos(): void {
+    this.isPaginateLoading.set(true);
+    this.getPhotos(true);
+  }
+
+  private getPhotos(isPaginated = false): void {
     if (isPaginated) {
       this.filters.update((filter) => ({ ...filter, page: filter.page + 1 }));
     }
@@ -32,7 +40,12 @@ export class PhotosComponent implements OnInit {
       .getPhotos(this.filters())
       .pipe(take(1), takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
-      isPaginated ? this.photoList.update((photo) => ([...photo, ...res])) : this.photoList.set(res);
+      if (isPaginated) {
+        this.photoList.update((photo) => ([...photo, ...res]))
+        this.isPaginateLoading.set(false);
+      } else {
+        this.photoList.set(res)
+      }
     })
   }
 }
