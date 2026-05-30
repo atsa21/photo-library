@@ -1,6 +1,6 @@
 <div class="page img-container">
   @if (photo(); as photo) {
-    <img [src]="photo.url" alt=''/>
+    <img [src]="photo.url" [alt]='photo.author'/>
     <button matButton="tonal" (click)="remove(photo.id)">Remove from favorites</button>
   }
 </div>

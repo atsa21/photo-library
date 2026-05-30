@@ -1,7 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { of } from 'rxjs';
+import { ComponentRef } from '@angular/core';
 
 import { CardGridComponent } from './card-grid.component';
-import { ComponentRef } from '@angular/core';
+import { BREAKPOINTS } from '@core/constants';
+
+function makeBreakpointSpy(tablet: boolean, mobile = false): jasmine.SpyObj<BreakpointObserver> {
+  const spy = jasmine.createSpyObj<BreakpointObserver>('BreakpointObserver', ['observe']);
+  spy.observe.and.callFake((query: string | string[]) => {
+    const matches = query === BREAKPOINTS.mobile ? mobile : tablet;
+    return of({ matches, breakpoints: {} } as BreakpointState);
+  });
+  return spy;
+}
 
 describe('CardGridComponent', () => {
   let component: CardGridComponent;
@@ -11,7 +23,8 @@ describe('CardGridComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardGridComponent]
+      imports: [CardGridComponent],
+      providers: [{ provide: BreakpointObserver, useValue: makeBreakpointSpy(false) }],
     })
     .compileComponents();
 
@@ -54,5 +67,32 @@ describe('CardGridComponent', () => {
   it('should set display to grid', () => {
     fixture.detectChanges();
     expect(hostEl.style.display).toBe('grid');
+  });
+
+  it('should apply tabletColumn when on tablet screen', async () => {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [CardGridComponent],
+      providers: [{ provide: BreakpointObserver, useValue: makeBreakpointSpy(true) }],
+    }).compileComponents();
+
+    const tabletFixture = TestBed.createComponent(CardGridComponent);
+    tabletFixture.componentRef.setInput('tabletColumn', 2);
+    tabletFixture.detectChanges();
+
+    expect(tabletFixture.nativeElement.style.gridTemplateColumns).toBe('repeat(2, 1fr)');
+  });
+
+  it('should apply mobileColumn 1 when on mobile screen', async () => {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [CardGridComponent],
+      providers: [{ provide: BreakpointObserver, useValue: makeBreakpointSpy(false, true) }],
+    }).compileComponents();
+
+    const mobileFixture = TestBed.createComponent(CardGridComponent);
+    mobileFixture.detectChanges();
+
+    expect(mobileFixture.nativeElement.style.gridTemplateColumns).toBe('repeat(1, 1fr)');
   });
 });
