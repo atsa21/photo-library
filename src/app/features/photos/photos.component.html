@@ -4,7 +4,7 @@
   (scrolled)="paginatePhotos()"
 >
   <app-card-grid>
-    @for (photo of photoList(); track photo) {
+    @for (photo of photoList(); track photo.trackId) {
       <app-photo-card [photo]="photo" (photoClick)="makeFavorite($event)"/>
     }
   </app-card-grid>

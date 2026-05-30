@@ -1,4 +1,17 @@
-img {
-  min-height: 300px;
-  min-width: 200px;
+:host {
+  display: block;
+  width: 100%;
+}
+
+.photo-card img {
+  background: #e0e0e0;
+  transition: opacity 0.3s;
+  opacity: 0;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+
+  &.loaded {
+    opacity: 1;
+  }
 }

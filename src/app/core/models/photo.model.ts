@@ -9,6 +9,7 @@ export interface PhotoRequestModel {
 
 export interface PhotoModel {
   id: string;
+  trackId: string;
   author: string;
   url: string;
   thumbUrl: string;

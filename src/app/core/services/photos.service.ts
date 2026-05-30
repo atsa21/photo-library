@@ -15,11 +15,12 @@ export class PhotosService {
     const { page, limit } = filters;
     return this.http
       .get<PhotoRequestModel[]>(this.apiUrl, { params: { page, limit } })
-      .pipe(map(photos => photos.map(p => ({
-        id: p.id,
-        author: p.author,
-        url: `https://picsum.photos/id/${p.id}/1200/900`,
-        thumbUrl: `https://picsum.photos/id/${p.id}/400/300`,
+      .pipe(map(photos => photos.map(photo => ({
+        id: photo.id,
+        trackId: `${photo.id}${photo.author}`,
+        author: photo.author,
+        url: `https://picsum.photos/id/${photo.id}/1200/900.webp`,
+        thumbUrl: `https://picsum.photos/id/${photo.id}/400/300.webp`,
       }))),delay(delayMs));
   }
 }

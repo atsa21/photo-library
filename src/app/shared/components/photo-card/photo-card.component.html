@@ -1,9 +1,11 @@
 <mat-card appearance="outlined">
   <img
     mat-card-image
+    loading="lazy"
     [src]="photo().thumbUrl"
-    alt=''
+    [alt]='photo().author'
     tabindex="0"
+    (load)="$event.target.classList.add('loaded')"
     (click)="photoClick.emit(photo())"
     (keydown.enter)="photoClick.emit(photo())"
   />
