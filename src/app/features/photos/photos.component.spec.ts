@@ -110,11 +110,10 @@ describe('PhotosComponent', () => {
   });
 
   describe('makeFavorite', () => {
-    it('should call favoritesService.addFavorite and update favoriteList', () => {
+    it('should call favoritesService.addFavorite', () => {
       component.makeFavorite(MOCK_PHOTOS[0]);
 
       expect(favoritesService.addFavorite).toHaveBeenCalledOnceWith(MOCK_PHOTOS[0]);
-      expect(component.favoriteList()).toContain(MOCK_PHOTOS[0]);
     });
   });
 });

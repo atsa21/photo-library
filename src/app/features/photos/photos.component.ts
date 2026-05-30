@@ -24,7 +24,6 @@ import { CardGridComponent } from '@shared/components/card-grid/card-grid.compon
 })
 export class PhotosComponent implements OnInit {
   photoList = signal<PhotoModel[]>([]);
-  favoriteList = signal<PhotoModel[]>([]);
   isPaginateLoading = signal(false);
 
   private filters = signal<FiltersModel>(DEFAULT_FILTERS);
@@ -43,7 +42,6 @@ export class PhotosComponent implements OnInit {
 
   makeFavorite(photo: PhotoModel): void {
     this.favoritesService.addFavorite(photo);
-    this.favoriteList.update((list) => [...list, photo]);
   }
 
   private getPhotos(isPaginated = false): void {

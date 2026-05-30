@@ -1,1 +1,9 @@
-<p>favorites works!</p>
+<div
+  class="page scrollable-page"
+>
+  <app-card-grid>
+    @for (photo of photoList(); track photo) {
+      <app-photo-card [photo]="photo" (photoClick)="openPhoto($event)"/>
+    }
+  </app-card-grid>
+</div>
