@@ -1,3 +1,4 @@
 <mat-card appearance="outlined">
-  <img mat-card-image [src]="photo().thumbUrl" alt='' />
+  <img mat-card-image [src]="photo().thumbUrl" alt='' tabindex="0"
+       (click)="photoClick.emit(photo())" (keydown.enter)="photoClick.emit(photo())" />
 </mat-card>

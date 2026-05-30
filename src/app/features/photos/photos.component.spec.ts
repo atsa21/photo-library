@@ -6,37 +6,33 @@ import { of } from 'rxjs';
 import { PhotosComponent } from './photos.component';
 import { InfiniteScrollDirective } from '@shared/directives/infinite-scroll.directive';
 import { PhotosService } from '@core/services/photos.service';
-import { PhotoModel } from '@core/models';
-
-const MOCK_PHOTOS: PhotoModel[] = [
-  { id: '0', url: 'test0.jpg', thumbUrl: 'test0.jpg' },
-  { id: '1', url: 'test1.jpg', thumbUrl: 'test1.jpg' },
-  { id: '2', url: 'test2.jpg', thumbUrl: 'test2.jpg' },
-  { id: '3', url: 'test3.jpg', thumbUrl: 'test3.jpg' },
-  { id: '4', url: 'test4.jpg', thumbUrl: 'test4.jpg' },
-  { id: '5', url: 'test5.jpg', thumbUrl: 'test5.jpg' },
-  { id: '6', url: 'test6.jpg', thumbUrl: 'test6.jpg' },
-  { id: '7', url: 'test7.jpg', thumbUrl: 'test7.jpg' },
-  { id: '8', url: 'test8.jpg', thumbUrl: 'test8.jpg' },
-];
+import { FavoritesService } from '@core/services/favorites.service';
+import { MOCK_PHOTOS } from '@core/mocks';
 
 describe('PhotosComponent', () => {
   let component: PhotosComponent;
   let fixture: ComponentFixture<PhotosComponent>;
   let photosService: jasmine.SpyObj<PhotosService>;
+  let favoritesService: jasmine.SpyObj<FavoritesService>;
 
   beforeEach(async () => {
     const photosServiceSpy = jasmine.createSpyObj<PhotosService>('PhotosService', ['getPhotos']);
     photosServiceSpy.getPhotos.and.returnValue(of(MOCK_PHOTOS));
 
+    const favoritesServiceSpy = jasmine.createSpyObj<FavoritesService>('FavoritesService', ['addFavorite']);
+
     await TestBed.configureTestingModule({
       imports: [PhotosComponent],
-      providers: [{ provide: PhotosService, useValue: photosServiceSpy }],
+      providers: [
+        { provide: PhotosService, useValue: photosServiceSpy },
+        { provide: FavoritesService, useValue: favoritesServiceSpy },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
 
     photosService = TestBed.inject(PhotosService) as jasmine.SpyObj<PhotosService>;
+    favoritesService = TestBed.inject(FavoritesService) as jasmine.SpyObj<FavoritesService>;
     fixture = TestBed.createComponent(PhotosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -110,6 +106,15 @@ describe('PhotosComponent', () => {
       expect(component['filters']().page).toBe(1);
       expect(photosService.getPhotos).toHaveBeenCalledWith({ page: 1, limit: 9 });
       expect(component.photoList().length).toBe(MOCK_PHOTOS.length * 2);
+    });
+  });
+
+  describe('makeFavorite', () => {
+    it('should call favoritesService.addFavorite and update favoriteList', () => {
+      component.makeFavorite(MOCK_PHOTOS[0]);
+
+      expect(favoritesService.addFavorite).toHaveBeenCalledOnceWith(MOCK_PHOTOS[0]);
+      expect(component.favoriteList()).toContain(MOCK_PHOTOS[0]);
     });
   });
 });

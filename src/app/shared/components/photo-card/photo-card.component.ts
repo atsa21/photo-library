@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { PhotoModel } from '@core/models';
 import { MatCardModule } from '@angular/material/card';
 
@@ -10,4 +10,5 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class PhotoCardComponent {
   photo = input.required<PhotoModel>();
+  photoClick = output<PhotoModel>();
 }

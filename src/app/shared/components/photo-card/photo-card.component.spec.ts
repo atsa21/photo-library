@@ -29,4 +29,13 @@ describe('PhotoCardComponent', () => {
     const img: HTMLImageElement = fixture.nativeElement.querySelector('img');
     expect(img.getAttribute('src')).toBe(MOCK_PHOTO.thumbUrl);
   });
+
+  it('should emit photoClick with photo on img click', () => {
+    let emitted: PhotoModel | undefined;
+    component.photoClick.subscribe((photo: PhotoModel) => (emitted = photo));
+
+    fixture.nativeElement.querySelector('img').click();
+
+    expect(emitted).toEqual(MOCK_PHOTO);
+  });
 });

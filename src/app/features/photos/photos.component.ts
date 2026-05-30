@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_FILTERS } from '@core/constants';
 import { FiltersModel, PhotoModel } from '@core/models';
 import { PhotosService } from '@core/services/photos.service';
+import { FavoritesService } from '@core/services/favorites.service';
 import { PhotoCardComponent } from '@shared/components/photo-card/photo-card.component';
 import { take } from 'rxjs';
 import { InfiniteScrollDirective } from "@shared/directives/infinite-scroll.directive";
@@ -23,10 +24,12 @@ import { CardGridComponent } from '@shared/components/card-grid/card-grid.compon
 })
 export class PhotosComponent implements OnInit {
   photoList = signal<PhotoModel[]>([]);
+  favoriteList = signal<PhotoModel[]>([]);
   isPaginateLoading = signal(false);
 
   private filters = signal<FiltersModel>(DEFAULT_FILTERS);
   private photosService = inject(PhotosService);
+  private favoritesService = inject(FavoritesService);
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
@@ -36,6 +39,11 @@ export class PhotosComponent implements OnInit {
   paginatePhotos(): void {
     this.isPaginateLoading.set(true);
     this.getPhotos(true);
+  }
+
+  makeFavorite(photo: PhotoModel): void {
+    this.favoritesService.addFavorite(photo);
+    this.favoriteList.update((list) => [...list, photo]);
   }
 
   private getPhotos(isPaginated = false): void {
