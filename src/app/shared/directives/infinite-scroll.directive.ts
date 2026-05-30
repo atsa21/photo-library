@@ -1,9 +1,10 @@
-import { Directive, inject, ElementRef, OnDestroy, output, OnInit } from '@angular/core';
+import { Directive, inject, input, ElementRef, OnDestroy, output, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appInfiniteScroll]',
 })
 export class InfiniteScrollDirective implements OnDestroy, OnInit {
+  scrollDisabled = input<boolean>(false);
   scrolled = output();
 
   private observer!: IntersectionObserver;
@@ -16,7 +17,10 @@ export class InfiniteScrollDirective implements OnDestroy, OnInit {
     this.el.nativeElement.appendChild(this.sentinel);
 
     this.observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) this.scrolled.emit();
+      if (entry.isIntersecting && !this.scrollDisabled()) {
+        console.log(this.scrollDisabled());
+        this.scrolled.emit();
+      }
     });
     this.observer.observe(this.sentinel);
   }

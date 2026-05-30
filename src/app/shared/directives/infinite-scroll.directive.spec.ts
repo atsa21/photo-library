@@ -30,6 +30,7 @@ class MockIntersectionObserver {
     <div class="scroll-container"
          style="height: 200px; overflow-y: auto;"
          appInfiniteScroll
+         [scrollDisabled]="scrollDisabled"
          (scrolled)="onScrolled()">
         @for(item of items; track item) {
           <div style="height: 50px;">{{ item }}</div>
@@ -42,6 +43,7 @@ class MockIntersectionObserver {
 })
 class TestHostComponent {
   items = [1, 2, 3];
+  scrollDisabled = false;
   scrollCount = 0;
 
   onScrolled(): void {
@@ -80,6 +82,15 @@ describe('InfiniteScrollDirective', () => {
 
   it('should not emit when not intersecting', () => {
     MockIntersectionObserver.instance.trigger(false);
+    expect(fixture.componentInstance.scrollCount).toBe(0);
+  });
+
+  it('should not emit scrolled when scroll disabled', () => {
+    fixture.componentInstance.scrollDisabled = true;
+    fixture.detectChanges();
+
+    MockIntersectionObserver.instance.trigger(true);
+
     expect(fixture.componentInstance.scrollCount).toBe(0);
   });
 

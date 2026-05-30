@@ -25,6 +25,7 @@ import { CardGridComponent } from '@shared/components/card-grid/card-grid.compon
 export class PhotosComponent implements OnInit {
   photoList = signal<PhotoModel[]>([]);
   isPaginateLoading = signal(false);
+  isLoading = signal(false);
 
   private filters = signal<FiltersModel>(DEFAULT_FILTERS);
   private photosService = inject(PhotosService);
@@ -36,6 +37,9 @@ export class PhotosComponent implements OnInit {
   }
 
   paginatePhotos(): void {
+    if (this.isLoading()) {
+      return;
+    }
     this.isPaginateLoading.set(true);
     this.getPhotos(true);
   }
@@ -47,17 +51,20 @@ export class PhotosComponent implements OnInit {
   private getPhotos(isPaginated = false): void {
     if (isPaginated) {
       this.filters.update((filter) => ({ ...filter, page: filter.page + 1 }));
+    } else {
+      this.isLoading.set(true);
     }
     this.photosService
       .getPhotos(this.filters())
       .pipe(take(1), takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
-      if (isPaginated) {
-        this.photoList.update((photo) => ([...photo, ...res]))
-        this.isPaginateLoading.set(false);
-      } else {
-        this.photoList.set(res)
-      }
-    })
+        if (isPaginated) {
+          this.photoList.update((photos) => [...photos, ...res]);
+          this.isPaginateLoading.set(false);
+        } else {
+          this.photoList.set(res);
+          this.isLoading.set(false);
+        }
+      });
   }
 }

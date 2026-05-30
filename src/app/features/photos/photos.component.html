@@ -1,6 +1,7 @@
 <div
   class="page scrollable-page"
   appInfiniteScroll
+  [scrollDisabled]="isLoading() || isPaginateLoading()"
   (scrolled)="paginatePhotos()"
 >
   <app-card-grid>

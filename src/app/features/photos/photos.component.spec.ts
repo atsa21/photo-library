@@ -89,6 +89,13 @@ describe('PhotosComponent', () => {
       expect(component.photoList().length).toBe(MOCK_PHOTOS.length * 2);
       expect(component.isPaginateLoading()).toBeFalse();
     });
+
+    it('should not call getPhotos when isLoading is true', () => {
+      component.isLoading.set(true);
+      component.paginatePhotos();
+
+      expect(getPhotosSpy).not.toHaveBeenCalled();
+    });
   });
 
   describe('getPhotos', () => {
