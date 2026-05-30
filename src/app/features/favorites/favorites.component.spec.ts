@@ -48,4 +48,11 @@ describe('FavoritesComponent', () => {
 
     expect(router.navigate).toHaveBeenCalledOnceWith(['photos', MOCK_PHOTOS[0].id]);
   });
+
+  it('should show empty-page when photoList is empty', () => {
+    component.photoList.set([]);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.empty-page')).toBeTruthy();
+  });
 });

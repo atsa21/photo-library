@@ -1,9 +1,17 @@
 <div
   class="page scrollable-page"
 >
-  <app-card-grid>
-    @for (photo of photoList(); track photo) {
-      <app-photo-card [photo]="photo" (photoClick)="openPhoto($event)"/>
-    }
-  </app-card-grid>
+  @if (photoList().length) {
+    <app-card-grid>
+      @for (photo of photoList(); track photo) {
+        <app-photo-card [photo]="photo" (photoClick)="openPhoto($event)"/>
+      }
+    </app-card-grid>
+  } @else {
+    <div class="empty-page">
+      <h1>No Favorites</h1>
+      <p>Click on photo from Photos page to add it to Favorites</p>
+    </div>
+  }
+
 </div>
