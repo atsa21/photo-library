@@ -5,9 +5,37 @@
   width: 100%;
 }
 
+mat-card {
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:not(:has(mat-icon)) {
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+    }
+
+    &:active {
+      transform: scale(0.97);
+      box-shadow: none;
+    }
+  }
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: vars.$color-red;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+  pointer-events: none;
+}
+
 mat-card img {
   background: vars.$color-skeleton;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, transform 0.3s ease;
   opacity: 0;
   width: 100%;
   aspect-ratio: 4 / 3;
@@ -15,5 +43,9 @@ mat-card img {
 
   &.loaded {
     opacity: 1;
+  }
+
+  mat-card:active & {
+    transform: scale(1.03);
   }
 }

@@ -6,7 +6,7 @@
 >
   <app-card-grid>
     @for (photo of photoList(); track photo.trackId) {
-      <app-photo-card [photo]="photo" (photoClick)="makeFavorite($event)"/>
+      <app-photo-card [photo]="photo" [favorite]="isFavorite(photo.id)" (photoClick)="makeFavorite($event)"/>
     }
   </app-card-grid>
 

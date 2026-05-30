@@ -44,6 +44,10 @@ export class PhotosComponent implements OnInit {
     this.getPhotos(true);
   }
 
+  isFavorite(id: string): boolean {
+    return this.favoritesService.isFavorite(id);
+  }
+
   makeFavorite(photo: PhotoModel): void {
     this.favoritesService.addFavorite(photo);
   }

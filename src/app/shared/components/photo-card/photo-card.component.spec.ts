@@ -31,6 +31,20 @@ describe('PhotoCardComponent', () => {
     expect(img.getAttribute('src')).toBe(mockPhoto.thumbUrl);
   });
 
+  it('should display heart icon when favorite is true', () => {
+    fixture.componentRef.setInput('favorite', true);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('mat-icon')).toBeTruthy();
+  });
+
+  it('should not display heart icon when favorite is false', () => {
+    fixture.componentRef.setInput('favorite', false);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('mat-icon')).toBeFalsy();
+  });
+
   it('should emit photoClick with photo on img click', () => {
     let emitted: PhotoModel | undefined;
     component.photoClick.subscribe((photo: PhotoModel) => (emitted = photo));

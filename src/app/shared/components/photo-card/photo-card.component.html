@@ -9,4 +9,7 @@
     (click)="photoClick.emit(photo())"
     (keydown.enter)="photoClick.emit(photo())"
   />
+  @if (favorite()) {
+    <mat-icon class="favorite-icon">favorite</mat-icon>
+  }
 </mat-card>
