@@ -1,8 +1,10 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 
 import { PhotosComponent } from './photos.component';
+import { InfiniteScrollDirective } from '@shared/directives/infinite-scroll.directive';
 import { PhotosService } from '@core/services/photos.service';
 import { PhotoModel } from '@core/models';
 
@@ -38,7 +40,7 @@ describe('PhotosComponent', () => {
   });
 
   it('should call getPhotos onInit', () => {
-    const getPhotosSpy = spyOn(component as any, 'getPhotos');
+    const getPhotosSpy = spyOn(component, 'getPhotos');
     
     component.ngOnInit();
     expect(getPhotosSpy).toHaveBeenCalledOnceWith();
@@ -58,5 +60,13 @@ describe('PhotosComponent', () => {
   it('should render a photo card for each photo', () => {
     const cards = fixture.nativeElement.querySelectorAll('app-photo-card');
     expect(cards.length).toBe(MOCK_PHOTOS.length);
+  });
+
+  it('should call getPhotos with isPaginated on scrolled event', () => {
+    const directiveEl = fixture.debugElement.query(By.directive(InfiniteScrollDirective));
+    directiveEl.triggerEventHandler('scrolled', null);
+
+    expect(photosService.getPhotos).toHaveBeenCalledWith({ page: 1, limit: 9 });
+    expect(component.photoList().length).toBe(18);
   });
 });

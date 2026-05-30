@@ -17,6 +17,7 @@ describe('PhotoCardComponent', () => {
 
     fixture = TestBed.createComponent(PhotoCardComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('photo', MOCK_PHOTO);
     fixture.detectChanges();
   });
 
@@ -25,9 +26,7 @@ describe('PhotoCardComponent', () => {
   });
 
   it('should update img src when photo input changes', () => {
-    fixture.componentRef.setInput('photo', MOCK_PHOTO);
-    fixture.detectChanges();
     const img: HTMLImageElement = fixture.nativeElement.querySelector('img');
-    expect(img.src).toBe(MOCK_PHOTO.thumbUrl);
+    expect(img.getAttribute('src')).toBe(MOCK_PHOTO.thumbUrl);
   });
 });
