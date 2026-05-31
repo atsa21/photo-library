@@ -39,11 +39,11 @@ describe('CardGridComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should apply default 3-column 1-row grid 16px gap', () => {
+  it('should apply default 3-column 1-row grid 8px gap', () => {
     fixture.detectChanges();
     expect(hostEl.style.gridTemplateColumns).toBe('repeat(3, 1fr)');
     expect(hostEl.style.gridTemplateRows).toBe('repeat(1, 1fr)');
-    expect(hostEl.style.gap).toBe('16px');
+    expect(hostEl.style.gap).toBe('8px');
   });
 
   it('should apply custom columns', () => {
