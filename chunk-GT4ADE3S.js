@@ -1,0 +1,1 @@
+import{Qb as i,R as n,T as e,na as t}from"./chunk-RDHB6DZO.js";var a=new n("MATERIAL_ANIMATIONS"),o=null;function r(){return e(a,{optional:!0})?.animationsDisabled||e(t,{optional:!0})==="NoopAnimations"?"di-disabled":(o??=e(i).matchMedia("(prefers-reduced-motion)").matches,o?"reduced-motion":"enabled")}function A(){return r()!=="enabled"}export{r as a,A as b};
