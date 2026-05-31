@@ -65,6 +65,22 @@ describe('PhotosComponent', () => {
     expect(spinner).toBeDefined();
   });
 
+  describe('loading page', () => {
+    it('should show .loading-page when isLoading is true', () => {
+      component.isLoading.set(true);
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.loading-page')).toBeTruthy();
+    });
+
+    it('should not show .loading-page when isLoading is false', () => {
+      component.isLoading.set(false);
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.loading-page')).toBeFalsy();
+    });
+  });
+
   describe('paginatePhotos', () => {
     let getPhotosSpy: jasmine.Spy;
 

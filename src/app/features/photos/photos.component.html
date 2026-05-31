@@ -4,13 +4,20 @@
   [scrollDisabled]="isLoading() || isPaginateLoading()"
   (scrolled)="paginatePhotos()"
 >
-  <app-card-grid>
-    @for (photo of photoList(); track photo.trackId) {
-      <app-photo-card [photo]="photo" [favorite]="isFavorite(photo.id)" (photoClick)="makeFavorite($event)"/>
-    }
-  </app-card-grid>
+  @if (!isLoading()) {
+    <app-card-grid>
+      @for (photo of photoList(); track photo.trackId) {
+        <app-photo-card [photo]="photo" [favorite]="isFavorite(photo.id)" (photoClick)="makeFavorite($event)"/>
+      }
+    </app-card-grid>
 
-  @if (isPaginateLoading()) {
-    <app-loader />
+    @if (isPaginateLoading()) {
+      <app-loader />
+    }
+  } @else {
+    <div class="loading-page">
+      <app-loader />
+    </div>
   }
+
 </div>
