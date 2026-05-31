@@ -34,6 +34,7 @@
     "@angular/compiler-cli": "^21.2.15",
     "@eslint/js": "^10.0.1",
     "@types/jasmine": "^6.0.0",
+    "angular-cli-ghpages": "^3.0.3",
     "eslint": "^10.4.1",
     "globals": "^17.6.0",
     "jiti": "^2.7.0",
