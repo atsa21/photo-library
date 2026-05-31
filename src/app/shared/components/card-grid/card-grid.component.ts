@@ -14,7 +14,7 @@ import { BREAKPOINTS } from '@core/constants';
 export class CardGridComponent {
   columns = input<number>(3);
   rows = input<number>(1);
-  gap = input<number>(16);
+  gap = input<number>(8);
   tabletColumn = input<number>(2);
   mobileColumn = input<number>(1);
 
